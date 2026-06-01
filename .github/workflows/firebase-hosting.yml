@@ -13,6 +13,7 @@ on:
 permissions:
   checks: write
   contents: read
+  id-token: write
   pull-requests: write
 
 jobs:
@@ -36,22 +37,19 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: projects/282468806996/locations/global/workloadIdentityPools/github-actions/providers/github
+          service_account: github-firebase-hosting@propfynia-app.iam.gserviceaccount.com
+
+      - name: Install Firebase CLI
+        run: npm install --global firebase-tools
+
       - name: Deploy preview channel
         if: github.event_name == 'pull_request'
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PROPFYNIA_APP }}
-          projectId: propfynia-app
-          siteId: propfynia-website
-          channelId: pr-${{ github.event.pull_request.number }}
+        run: firebase hosting:channel:deploy pr-${{ github.event.pull_request.number }} --project propfynia-app --expires 7d
 
       - name: Deploy live site
         if: github.event_name == 'push'
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PROPFYNIA_APP }}
-          projectId: propfynia-app
-          siteId: propfynia-website
-          channelId: live
+        run: firebase deploy --only hosting --project propfynia-app
