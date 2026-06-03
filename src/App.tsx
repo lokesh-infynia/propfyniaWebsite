@@ -28,12 +28,12 @@ import { BUILDING_REPORT_URL, CONTACT_URL, OWNER_PROFILE_URL, WHATSAPP_URL, logo
 const ownerFeatures: Array<{ title: string; copy: string; icon: LucideIcon }> = [
   {
     title: "Property Vault",
-    copy: "Store lease agreements, property photos, furnishing details, parking information, and rent/sale notes in one place.",
+    copy: "Store lease agreements, property photos, furnishing details, parking information, and rent or sale notes in one place.",
     icon: FileLock2,
   },
   {
     title: "Lease Tracker",
-    copy: "Track lease expiry and renewal dates so you are reminded before the next opportunity.",
+    copy: "Track lease expiry and renewal dates so you are reminded before your next rent or sale opportunity.",
     icon: CalendarClock,
   },
   {
@@ -57,7 +57,7 @@ const ownerStatuses = [
   ["Not Available", "Your property is not shared or promoted."],
   ["Lease Ending Soon", "PropFynia may remind you before renewal or vacancy."],
   ["Available for Rent", "Your property can be shared with verified local agents."],
-  ["Considering Sale", "Selected agents can be informed about sale intent."],
+  ["Considering Sale", "Selected agents can be informed about your sale intent."],
   ["Call Me Later", "PropFynia follows up at your preferred time."],
 ] as const;
 
@@ -75,7 +75,7 @@ const steps = [
     icon: PhoneCall,
   },
   {
-    title: "Verified local agents receive structured opportunity information, helping owners get wider reach and agents get genuine leads.",
+    title: "Verified local agents receive structured opportunity information, helping owners get wider reach and agents discover genuine opportunities.",
     icon: Building2,
   },
 ] as const;
@@ -92,7 +92,7 @@ const agentFeatures = [
 const sampleRows = [
   ["A-1204", "Rent", "3BHK", "Semi-furnished", "₹55,000/month", "Immediate", "Hot"],
   ["B-1802", "Sell", "3BHK", "Furnished", "₹2.4 Cr", "30 days", "Warm"],
-  ["C-908", "Call Later", "2BHK", "Unknown", "Not shared", "Sunday callback", "Follow-up"],
+  ["C-908", "Call Later", "2BHK", "Not shared", "Not shared", "Sunday callback", "Follow-up"],
   ["D-1101", "Already Listed", "3BHK", "Semi-furnished", "₹58,000/month", "Active", "Listed"],
 ] as const;
 
@@ -109,17 +109,20 @@ const pricing = [
   {
     name: "Building Report",
     price: "₹1,000",
-    copy: "Access one building-wise owner opportunity report. Includes rent/sale intent, lead category, property details, and callback status.",
+    copy: "Access one building-wise owner opportunity report.",
+    includes: ["Rent and sale intent", "Lead category", "Flat size and furnishing", "Expected price or rent", "Callback status"],
   },
   {
     name: "Area Pack",
     price: "₹4,000",
     copy: "Access up to 5 building reports in one micro-market.",
+    includes: [],
   },
   {
     name: "Priority Access",
     price: "Custom",
     copy: "Fresh opportunity alerts, priority building coverage, and recurring reports.",
+    includes: [],
   },
 ] as const;
 
@@ -130,11 +133,12 @@ const trustPoints = [
   "Owners can pause or update availability anytime.",
   "Calls are short, polite, and opportunity-specific.",
   "Property documents and photos are stored for owner convenience and future reuse.",
+  "Owners can request human assistance when needed.",
 ];
 
 const comparisons = [
   ["Owner uploads only when actively listing", "Tracks readiness before listing"],
-  ["Photos and documents scattered", "Property Vault keeps everything together"],
+  ["Photos and documents are scattered", "Property Vault keeps everything together"],
   ["Brokers chase old listings", "Agents get owner intent and lease signals"],
   ["No lease lifecycle tracking", "Lease expiry creates timely reminders"],
   ["Same listing visible everywhere", "Owner-controlled sharing with verified agents"],
@@ -200,7 +204,7 @@ function Hero() {
             </a>
           </div>
           <p className="mt-5 max-w-2xl text-sm leading-7 text-white/65">
-            No document requests on calls. No forced broker sharing. Owners stay in control.
+            No forced broker sharing. No document collection on calls. Owners stay in control.
           </p>
         </motion.div>
 
@@ -260,6 +264,10 @@ function OwnerValue() {
 function OwnerControl() {
   return (
     <Section id="control" dark title="You decide when your property becomes an opportunity.">
+      <p className="mx-auto mb-8 max-w-3xl text-center text-base leading-8 text-white/72">
+        PropFynia is designed to reduce random broker calls. Owners are contacted only when there is a relevant
+        property event or owner-marked opportunity.
+      </p>
       <div className="overflow-hidden rounded-lg border border-white/10 bg-white/[0.055] shadow-glass">
         <div className="grid grid-cols-[0.85fr_1.15fr] border-b border-white/10 bg-white/10 px-4 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-gold-400 sm:px-6">
           <span>Status</span>
@@ -272,10 +280,6 @@ function OwnerControl() {
           </div>
         ))}
       </div>
-      <p className="mx-auto mt-8 max-w-3xl text-center text-base leading-8 text-white/72">
-        PropFynia is designed to reduce random broker calls. Owners are contacted only when there is a relevant
-        property event or owner-marked opportunity.
-      </p>
     </Section>
   );
 }
@@ -306,7 +310,7 @@ function AgentSection() {
           <p className="mt-5 text-base leading-8 text-white/72">
             PropFynia gives agents building-wise access to owner-approved or lease-triggered rent and sale
             opportunities. Instead of chasing stale listings, agents can view structured owner intent, expected price or
-            rent, flat size, furnishing status, and callback readiness.
+            rent, flat size, furnishing status, urgency, and callback readiness.
           </p>
           <a href={BUILDING_REPORT_URL} className="btn-primary btn-large mt-8">
             Request Building Report <ArrowRight size={18} />
@@ -330,7 +334,7 @@ function SampleReport() {
     <Section
       id="sample-report"
       title="Sample Building Opportunity Report"
-      copy="A structured report agents can act on."
+      copy="A simple view of rent and sale opportunities inside a building."
     >
       <div className="overflow-x-auto rounded-lg border border-navy-950/10 bg-white/80 shadow-glass">
         <table className="min-w-[820px] w-full border-collapse text-left text-sm">
@@ -356,7 +360,7 @@ function SampleReport() {
           </tbody>
         </table>
       </div>
-      <p className="mt-4 text-center text-sm text-navy-800/60">This is sample data for illustration only.</p>
+      <p className="mt-4 text-center text-sm text-navy-800/60">Sample data shown for illustration only.</p>
     </Section>
   );
 }
@@ -383,6 +387,16 @@ function Pricing() {
             <h3 className="text-lg font-semibold text-white">{plan.name}</h3>
             <p className="mt-3 text-4xl font-semibold text-gold-400">{plan.price}</p>
             <p className="mt-5 flex-1 text-sm leading-7 text-white/70">{plan.copy}</p>
+            {plan.includes.length > 0 && (
+              <ul className="mt-5 space-y-2 text-sm leading-6 text-white/75">
+                {plan.includes.map((item) => (
+                  <li key={item} className="flex gap-2">
+                    <CheckCircle2 className="mt-1 shrink-0 text-gold-400" size={15} />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
             <a href={WHATSAPP_URL} className="btn-primary mt-7">
               Request Pricing on WhatsApp <MessageCircle size={17} />
             </a>
