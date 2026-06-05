@@ -1,5 +1,5 @@
 export const APP_URL = "https://app.propfynia.com";
-export const OWNER_PROFILE_URL = "/owner-profile";
+export const OWNER_PROFILE_URL = APP_URL;
 export const BUILDING_REPORT_URL = "/building-report";
 export const CONTACT_URL = "/contact";
 export const WHATSAPP_URL = "https://wa.me/91XXXXXXXXXX";
