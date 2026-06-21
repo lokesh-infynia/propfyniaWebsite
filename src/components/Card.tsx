@@ -17,15 +17,15 @@ export function Card({ icon: Icon, title, copy, dark, children }: CardProps) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.5 }}
-      className={dark ? "glass-card dark-card" : "glass-card light-card"}
+      className={dark ? "dark-card" : "feature-card"}
     >
       {Icon && (
-        <div className={dark ? "icon-box bg-white/10 text-gold-400" : "icon-box bg-navy-950 text-gold-400"}>
-          <Icon size={21} strokeWidth={1.8} />
+        <div className={dark ? "icon-box-dark" : "icon-box"}>
+          <Icon size={20} strokeWidth={1.6} />
         </div>
       )}
-      <h3 className={dark ? "card-title text-white" : "card-title text-navy-950"}>{title}</h3>
-      {copy && <p className={dark ? "mt-3 text-sm leading-7 text-white/70" : "mt-3 text-sm leading-7 text-navy-800/70"}>{copy}</p>}
+      <h3 className={dark ? "card-title text-white" : "card-title text-ink"}>{title}</h3>
+      {copy && <p className={dark ? "mt-3 text-[15px] leading-7 text-on-dark-soft" : "mt-3 text-[15px] leading-7 text-body"}>{copy}</p>}
       {children}
     </motion.article>
   );
