@@ -2,148 +2,249 @@ import { motion } from "framer-motion";
 import {
   ArrowRight,
   BadgeCheck,
+  Banknote,
+  BarChart3,
+  Bell,
   Building2,
-  CalendarClock,
   CheckCircle2,
-  ClipboardList,
-  Clock3,
-  FileCheck2,
+  Coins,
   FileLock2,
+  FolderLock,
+  Handshake,
+  History,
   Home,
-  Image,
-  MapPinned,
-  MessageCircle,
+  KeyRound,
+  Landmark,
+  Mic,
   PhoneCall,
+  ReceiptText,
+  RefreshCcw,
   ShieldCheck,
+  Sparkles,
   Tags,
+  UploadCloud,
   UserCheck,
-  WalletCards,
+  Users,
+  Wrench,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Brand } from "./components/Brand";
 import { Card } from "./components/Card";
 import { Section } from "./components/Section";
-import { BUILDING_REPORT_URL, CONTACT_URL, OWNER_PROFILE_URL, WHATSAPP_URL, logoMark } from "./lib/constants";
+import {
+  AGENT_WHATSAPP_URL,
+  APP_URL,
+  INFYNIA_LABS_URL,
+  WHATSAPP_URL,
+  logoMark,
+} from "./lib/constants";
 
+// ── For Owners ───────────────────────────────────────────────────────────────
 const ownerFeatures: Array<{ title: string; copy: string; icon: LucideIcon }> = [
   {
-    title: "Property Vault",
-    copy: "Store lease agreements, property photos, furnishing details, parking information, and rent or sale notes in one place.",
-    icon: FileLock2,
-  },
-  {
-    title: "Lease Tracker",
-    copy: "Track lease expiry and renewal dates so you are reminded before your next rent or sale opportunity.",
-    icon: CalendarClock,
-  },
-  {
-    title: "Availability Status",
-    copy: "Mark your property as Not Available, Lease Ending Soon, Available for Rent, Considering Sale, or Call Me Later.",
-    icon: Tags,
-  },
-  {
-    title: "Wider Agent Reach",
-    copy: "When you choose, connect your property opportunity with verified local agents in your area.",
-    icon: UserCheck,
-  },
-  {
-    title: "Reusable Photos & Details",
-    copy: "Upload photos and property details once and reuse them for ads, WhatsApp sharing, and broker communication.",
-    icon: Image,
-  },
-];
-
-const ownerStatuses = [
-  ["Not Available", "Your property is not shared or promoted."],
-  ["Lease Ending Soon", "PropFynia may remind you before renewal or vacancy."],
-  ["Available for Rent", "Your property can be shared with verified local agents."],
-  ["Considering Sale", "Selected agents can be informed about your sale intent."],
-  ["Call Me Later", "PropFynia follows up at your preferred time."],
-] as const;
-
-const steps = [
-  {
-    title: "Owner creates or updates property profile.",
+    title: "One card for the whole flat",
+    copy: "Tower, floor, flat number and a live status — Rented Out, Vacant for Rent, or Vacant for Sale — always current, never a stale listing.",
     icon: Home,
   },
   {
-    title: "Lease documents, photos, flat details, and availability status are stored securely.",
-    icon: FileCheck2,
-  },
-  {
-    title: "When lease expiry or owner intent creates an opportunity, PropFynia confirms details through a short assisted conversation.",
-    icon: PhoneCall,
-  },
-  {
-    title: "Verified local agents receive structured opportunity information, helping owners get wider reach and agents discover genuine opportunities.",
+    title: "List another property yourself",
+    copy: "Own more than one flat? Add the next one directly. No admin queue — postpaid agents are already vetted, so listing doesn't wait on anyone.",
     icon: Building2,
   },
-] as const;
-
-const agentFeatures = [
-  "Building-wise owner intent reports",
-  "Rent-ready and sale-ready flats",
-  "Lease-expiry opportunity signals",
-  "Hot, warm, call-later, and already-listed classification",
-  "Expected rent and sale price intelligence",
-  "Callback-ready owner opportunities",
+  {
+    title: "Invite your tenant to the app",
+    copy: "Record their name and phone once. The next time they log in, they land straight in their own tenant portal.",
+    icon: UserCheck,
+  },
+  {
+    title: "Rent, confirmed in one tap",
+    copy: "When your tenant marks a month paid, it lands on your home screen for you to Confirm or Dispute — no more chasing screenshots.",
+    icon: Banknote,
+  },
+  {
+    title: "Deposit, on the record",
+    copy: "Your tenant logs the security deposit; you confirm it once. A shared, timestamped fact instead of two different memories.",
+    icon: ShieldCheck,
+  },
+  {
+    title: "Your agent, credited automatically",
+    copy: "When a postpaid agent closes your deal, their name, agency and RERA number appear on your account — no manual tagging.",
+    icon: BadgeCheck,
+  },
+  {
+    title: "Photo Locker & Document Vault",
+    copy: "Private, per-property photo storage and a home for the rental agreement itself — attached to the flat, not a phone's camera roll.",
+    icon: FolderLock,
+  },
+  {
+    title: "A record you didn't have to keep",
+    copy: "Every status change, tenant update and invite is logged automatically — a quiet activity history for the flat.",
+    icon: History,
+  },
+  {
+    title: "One inbox for the whole flat",
+    copy: "A rent payment reported, a deposit updated, a deal closed — everything that needs your attention arrives in one place.",
+    icon: Bell,
+  },
 ];
 
-const sampleRows = [
-  ["A-1204", "Rent", "3BHK", "Semi-furnished", "₹55,000/month", "Immediate", "Hot"],
-  ["B-1802", "Sell", "3BHK", "Furnished", "₹2.4 Cr", "30 days", "Warm"],
-  ["C-908", "Call Later", "2BHK", "Not shared", "Not shared", "Sunday callback", "Follow-up"],
-  ["D-1101", "Already Listed", "3BHK", "Semi-furnished", "₹58,000/month", "Active", "Listed"],
-] as const;
+// ── For Tenants ──────────────────────────────────────────────────────────────
+const tenantFeatures: Array<{ title: string; copy: string; icon: LucideIcon }> = [
+  {
+    title: "Your tenancy, up front",
+    copy: "Flat, society, and lease expiry with a countdown once it's approaching — self-declared until your owner verifies it.",
+    icon: KeyRound,
+  },
+  {
+    title: "Maintenance, tracked not texted",
+    copy: "Report an issue with photos and it goes straight to your owner — Reported to Resolved, not lost in a chat thread.",
+    icon: Wrench,
+  },
+  {
+    title: "Rent Ledger",
+    copy: "Pay online, or record a payment you made another way — either becomes a confirmable entry your owner can see.",
+    icon: Coins,
+  },
+  {
+    title: "Deposit, protected",
+    copy: "Log your security deposit once, so there's a dated record of what was paid — useful the day you negotiate move-out.",
+    icon: ShieldCheck,
+  },
+  {
+    title: "Lease renewal, in-app",
+    copy: "Around 90 days from expiry, PropFynia nudges you to start the conversation. Propose your terms; your owner is notified directly.",
+    icon: RefreshCcw,
+  },
+  {
+    title: "See what else is open in your society",
+    copy: "Unlock a live list of vacant flats in your own society with expected rent — free, with one tap to say I'm Interested.",
+    icon: Tags,
+  },
+  {
+    title: "Lease Documents",
+    copy: "Upload your rental agreement once — handy for renewal talks, and for deposit disputes if it ever comes to that.",
+    icon: FileLock2,
+  },
+  {
+    title: "The same agent transparency owners get",
+    copy: "If a postpaid agent handled your flat's deal, you'll see who they are too — name, agency, RERA number.",
+    icon: BadgeCheck,
+  },
+];
 
-const leadCategories = [
-  ["Hot Lead", "Owner is actively ready to rent or sell.", BadgeCheck],
-  ["Warm Lead", "Owner is interested but not urgent.", Clock3],
-  ["Call Later", "Owner requested follow-up at a specific time.", PhoneCall],
-  ["Already Listed", "Owner is already working with another broker.", ClipboardList],
-  ["Not Interested", "Owner declined.", CheckCircle2],
-  ["Wrong Number", "Invalid or non-owner contact.", MessageCircle],
-] as const;
-
-const pricing = [
+// ── For Postpaid Agents ──────────────────────────────────────────────────────
+const agentGroups: Array<{
+  eyebrow: string;
+  title: string;
+  copy: string;
+  items: Array<{ title: string; copy: string; icon: LucideIcon }>;
+}> = [
   {
-    name: "Building Report",
-    price: "₹1,000",
-    copy: "Access one building-wise owner opportunity report.",
-    includes: ["Rent and sale intent", "Lead category", "Flat size and furnishing", "Expected price or rent", "Callback status"],
+    eyebrow: "Getting Leads",
+    title: "Two ways contacts become leads",
+    copy: "Upload a list and let Infynia Labs' voice agents do the calling, or log an inquiry the moment it happens.",
+    items: [
+      {
+        title: "Import Society",
+        copy: "Drop in an Excel of names, phones, flats and prices — PropFynia turns it into a full society and property inventory in one pass.",
+        icon: UploadCloud,
+      },
+      {
+        title: "Submit Leads to Infynia Labs",
+        copy: "Upload a phone list of owners or buyers/renters. Our voice agents call every contact — qualified leads land in your Leads tab within 24–48 hours.",
+        icon: Mic,
+      },
+      {
+        title: "Log a lead yourself",
+        copy: "A walk-in, a call, a referral — tap Log and it's in your pipeline immediately, no upload required.",
+        icon: PhoneCall,
+      },
+    ],
   },
   {
-    name: "Area Pack",
-    price: "₹4,000",
-    copy: "Access up to 5 building reports in one micro-market.",
-    includes: [],
+    eyebrow: "Closing a Deal",
+    title: "From a qualified lead to a confirmed close",
+    copy: "Society Opportunities gives you the market-rate comparison; the rest of the deal runs through the app end to end.",
+    items: [
+      {
+        title: "Token Paid, then Deal Done",
+        copy: "Report a token and the flat locks from other agents. Report Deal Done and the owner is notified instantly to confirm.",
+        icon: Handshake,
+      },
+      {
+        title: "The flat updates itself",
+        copy: "The moment the owner confirms, status, availability and your name as servicing agent are all set automatically.",
+        icon: CheckCircle2,
+      },
+      {
+        title: "Deal Hub",
+        copy: "Rent receipts, a maintenance log, a move-in checklist, and one contacts sheet — plus documents drafted for you, state-aware on stamp duty.",
+        icon: ReceiptText,
+      },
+    ],
   },
   {
-    name: "Priority Access",
-    price: "Custom",
-    copy: "Fresh opportunity alerts, priority building coverage, and recurring reports.",
-    includes: [],
+    eyebrow: "Getting Paid",
+    title: "You keep your commission — we take our share of that",
+    copy: "1% from the owner, 1% from the buyer or tenant, adjustable per deal. PropFynia takes an agreed platform share of what you actually collect — never a cut of a deal you haven't closed.",
+    items: [
+      {
+        title: "Pay PropFynia",
+        copy: "Platform share on closed deals and any calling charges — each with its own invoice — settled in one place via Razorpay.",
+        icon: Banknote,
+      },
+      {
+        title: "Deal terms, set with you",
+        copy: "Your platform share and calling arrangement are agreed with our team when you're onboarded — not a flat rate applied blind.",
+        icon: Handshake,
+      },
+    ],
   },
-] as const;
+  {
+    eyebrow: "Your Team & Your Numbers",
+    title: "Bring on support staff — and see what's converting",
+    copy: "Invite staff by phone number; they work the same leads and deals you do, with none of the money visible to them.",
+    items: [
+      {
+        title: "Support staff, without the risk",
+        copy: "Your team logs in with their own phone. No commission figures, no payments, no banking details — ever.",
+        icon: Users,
+      },
+      {
+        title: "Analytics",
+        copy: "Which inquiry source converts, closed value by month, and which societies are yielding the most commission.",
+        icon: BarChart3,
+      },
+    ],
+  },
+];
 
 const trustPoints = [
-  "Owners control when property details are shared.",
-  "PropFynia does not ask for Aadhaar, PAN, bank details, or documents on calls.",
-  "PropFynia does not promise buyers or tenants.",
-  "Owners can pause or update availability anytime.",
-  "Calls are short, polite, and opportunity-specific.",
-  "Property documents and photos are stored for owner convenience and future reuse.",
-  "Owners can request human assistance when needed.",
+  "Owners and tenants sign in with their own phone number — no passwords to manage or leak.",
+  "Every property, lease, and payment record is owner-controlled — nothing is shared until the owner confirms it.",
+  "Postpaid agents are vetted by our team before they ever touch a listing — not an open marketplace anyone can join.",
+  "Rent and deposit records are two-sided by design: the tenant reports it, the owner confirms it. Neither side's word alone.",
+  "Agent identity — name, agency, RERA number — is shown automatically once a deal closes. No anonymous brokers.",
+  "Support staff can work leads and deals without ever seeing commission, payments, or banking details.",
 ];
 
-const comparisons = [
-  ["Owner uploads only when actively listing", "Tracks readiness before listing"],
-  ["Photos and documents are scattered", "Property Vault keeps everything together"],
-  ["Brokers chase old listings", "Agents get owner intent and lease signals"],
-  ["No lease lifecycle tracking", "Lease expiry creates timely reminders"],
-  ["Same listing visible everywhere", "Owner-controlled sharing with verified agents"],
-  ["Repeated broker calls", "Opportunity-based contact flow"],
-] as const;
+const infyniaProducts: Array<{ title: string; copy: string; icon: LucideIcon }> = [
+  {
+    title: "Voice Agents",
+    copy: "Sub-400ms voice AI in 8+ languages including Hindi — the same voice agents that call and qualify leads for PropFynia's postpaid agents.",
+    icon: Mic,
+  },
+  {
+    title: "BeatMyEMI",
+    copy: "Loan prepayment and payoff optimization — linked directly from every PropFynia owner's home screen for their home loan.",
+    icon: Landmark,
+  },
+  {
+    title: "Agent Infrastructure",
+    copy: "The full-stack platform behind it all — speech, LLM inference, voice synthesis, and CRM integration at enterprise scale.",
+    icon: Sparkles,
+  },
+];
 
 function App() {
   return (
@@ -153,26 +254,23 @@ function App() {
           <Brand variant="light" compact />
           <div className="hidden items-center gap-8 text-[15px] font-medium text-body lg:flex">
             <a href="#owners" className="hover:text-ink">Owners</a>
-            <a href="#control" className="hover:text-ink">Control</a>
+            <a href="#tenants" className="hover:text-ink">Tenants</a>
             <a href="#agents" className="hover:text-ink">Agents</a>
-            <a href="#pricing" className="hover:text-ink">Pricing</a>
+            <a href="#trust" className="hover:text-ink">Trust</a>
           </div>
-          <a className="btn-primary" href={OWNER_PROFILE_URL}>
-            Update Profile <ArrowRight size={16} />
+          <a className="btn-primary" href={APP_URL}>
+            Open the App <ArrowRight size={16} />
           </a>
         </nav>
       </header>
 
       <Hero />
-      <OwnerValue />
-      <OwnerControl />
-      <HowItWorks />
-      <AgentSection />
-      <SampleReport />
-      <LeadCategories />
-      <Pricing />
-      <TrustPrivacy />
-      <Comparison />
+      <RolePicker />
+      <OwnersSection />
+      <TenantsSection />
+      <AgentsSection />
+      <InfyniaLabsSection />
+      <TrustSection />
       <FinalCTA />
       <Footer />
       <FloatingWhatsApp />
@@ -183,30 +281,29 @@ function App() {
 function Hero() {
   return (
     <section className="relative overflow-hidden bg-canvas pt-16 text-ink">
-      {/* Atmospheric gradient orbs — pure decoration. */}
-      <div className="orb orb-lavender -left-32 -top-24 h-[34rem] w-[34rem]" />
-      <div className="orb orb-mint right-[-8rem] top-24 h-[30rem] w-[30rem]" />
-      <div className="orb orb-peach bottom-[-10rem] left-1/3 h-[26rem] w-[26rem]" />
+      <div className="orb orb-gold -left-32 -top-24 h-[34rem] w-[34rem]" />
+      <div className="orb orb-navy right-[-8rem] top-24 h-[30rem] w-[30rem]" />
       <div className="relative mx-auto grid min-h-[calc(100svh-4rem)] max-w-content items-center gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[1fr_0.82fr]">
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-          <span className="badge-pill">Owner-verified property intelligence</span>
-          <h1 className="mt-6 max-w-5xl font-display text-5xl font-normal leading-[1.05] tracking-[-0.03em] text-ink sm:text-6xl lg:text-7xl">
-            Store your property details once. Activate the right agents when you&apos;re ready to rent or sell.
+          <span className="badge-pill">One record, three people who need it</span>
+          <h1 className="mt-6 max-w-5xl font-display text-5xl font-bold leading-[1.05] tracking-display-tight text-ink sm:text-6xl lg:text-7xl">
+            Owner, tenant, and the agent who closed the deal — finally on the same page.
           </h1>
           <p className="mt-7 max-w-3xl text-base leading-8 text-body sm:text-lg">
-            PropFynia helps apartment owners securely manage lease documents, property photos, and availability status
-            while connecting genuine rent and sale opportunities with verified local agents.
+            PropFynia is the shared record behind a rented or sold home: rent and deposit tracking that both sides
+            confirm, lease renewals handled in-app, and deals run through vetted postpaid agents — not an open
+            marketplace anyone can list on.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <a href={OWNER_PROFILE_URL} className="btn-primary btn-large">
-              Update My Property Profile <ArrowRight size={18} />
+            <a href={APP_URL} className="btn-primary btn-large">
+              Open PropFynia <ArrowRight size={18} />
             </a>
-            <a href={BUILDING_REPORT_URL} className="btn-secondary btn-large">
-              Request Building Report
+            <a href="#agents" className="btn-secondary btn-large">
+              I'm a Property Agent
             </a>
           </div>
           <p className="mt-6 max-w-2xl text-sm leading-7 text-muted">
-            No forced broker sharing. No document collection on calls. Owners stay in control.
+            Free for owners and tenants. Agents are onboarded by request — see why below.
           </p>
         </motion.div>
 
@@ -219,17 +316,17 @@ function Hero() {
           <div className="relative rounded-2xl border border-hairline bg-surface-card p-6 shadow-soft sm:p-7">
             <div className="flex items-center justify-between border-b border-hairline pb-5">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.96px] text-muted">Property Vault</p>
-                <p className="mt-2 text-lg font-medium text-ink">A-1204, Lakeview Heights</p>
+                <p className="text-xs font-bold uppercase tracking-label text-muted">My Property</p>
+                <p className="mt-2 text-lg font-medium text-ink">B-402, Sunrise Meadows</p>
               </div>
               <img src={logoMark} alt="" className="h-12 w-12 object-contain" />
             </div>
             <div className="mt-6 grid gap-3">
               {[
-                ["Lease agreement", "Stored securely"],
-                ["Photos & furnishing", "Ready to reuse"],
-                ["Availability", "Lease Ending Soon"],
-                ["Sharing", "Owner-controlled"],
+                ["Current usage", "Rented out"],
+                ["Rent — Jul 2026", "Tenant reported, pending confirm"],
+                ["Deposit", "Confirmed"],
+                ["Servicing agent", "Karan Mehta · Mehta Realty"],
               ].map(([label, value]) => (
                 <div key={label} className="flex items-center justify-between rounded-lg border border-hairline bg-canvas-soft p-4">
                   <span className="text-sm text-muted">{label}</span>
@@ -237,8 +334,8 @@ function Hero() {
                 </div>
               ))}
             </div>
-            <div className="mt-6 rounded-lg border border-hairline bg-surface-strong p-4 text-sm leading-7 text-body">
-              Lease-triggered reminder ready. Share with verified local agents only when the owner confirms.
+            <div className="mt-6 rounded-lg border border-hairline bg-brand-soft p-4 text-sm leading-7 text-body">
+              Rent confirmed and agent credited automatically — nothing typed twice.
             </div>
           </div>
         </motion.div>
@@ -247,220 +344,163 @@ function Hero() {
   );
 }
 
-function OwnerValue() {
+function RolePicker() {
+  const roles = [
+    {
+      key: "owners",
+      emoji: "🏠",
+      title: "I own a property",
+      copy: "Track rent, deposits, and documents for every flat you own.",
+    },
+    {
+      key: "tenants",
+      emoji: "🔑",
+      title: "I rent a home",
+      copy: "Pay rent, log maintenance, and manage your lease from one place.",
+    },
+    {
+      key: "agents",
+      emoji: "🤝",
+      title: "I'm a property agent",
+      copy: "Work leads and close deals as a vetted PropFynia postpaid partner.",
+    },
+  ] as const;
+
+  return (
+    <section className="section-pad bg-canvas-soft">
+      <div className="mx-auto max-w-content px-5 sm:px-8">
+        <div className="grid gap-4 sm:grid-cols-3">
+          {roles.map((role) => (
+            <a key={role.key} href={`#${role.key}`} className="role-card">
+              <span className="text-3xl">{role.emoji}</span>
+              <h3 className="font-display text-xl font-bold text-ink">{role.title}</h3>
+              <p className="text-sm leading-6 text-body">{role.copy}</p>
+              <span className="mt-1 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                See what's inside <ArrowRight size={15} />
+              </span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function OwnersSection() {
   return (
     <Section
       id="owners"
-      title="For Property Owners"
-      copy="Keep your property ready, organized, and discoverable only when you choose."
+      eyebrow="For Property Owners"
+      title="Run your property without waiting on anyone."
+      copy="List a flat, invite your tenant, and confirm the rent that comes in — no agent approval gate at any step."
     >
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {ownerFeatures.map((feature) => (
           <Card key={feature.title} title={feature.title} copy={feature.copy} icon={feature.icon} />
         ))}
       </div>
+      <div className="mt-10 text-center">
+        <a href={APP_URL} className="btn-primary btn-large">
+          Open PropFynia <ArrowRight size={18} />
+        </a>
+      </div>
     </Section>
   );
 }
 
-function OwnerControl() {
+function TenantsSection() {
   return (
-    <Section id="control" dark title="You decide when your property becomes an opportunity.">
-      <p className="mx-auto mb-10 max-w-3xl text-center text-base leading-8 text-on-dark-soft">
-        PropFynia is designed to reduce random broker calls. Owners are contacted only when there is a relevant
-        property event or owner-marked opportunity.
+    <Section
+      id="tenants"
+      soft
+      eyebrow="For Tenants"
+      title="Your side of the lease, just as visible."
+      copy="Pay rent, log a maintenance issue, or start the renewal conversation early — from the flat you're actually living in."
+    >
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {tenantFeatures.map((feature) => (
+          <Card key={feature.title} title={feature.title} copy={feature.copy} icon={feature.icon} />
+        ))}
+      </div>
+      <div className="mt-10 text-center">
+        <a href={APP_URL} className="btn-primary btn-large">
+          Open PropFynia <ArrowRight size={18} />
+        </a>
+      </div>
+    </Section>
+  );
+}
+
+function AgentsSection() {
+  return (
+    <Section id="agents" dark eyebrow="For Postpaid Agents" title="Everything from first call to closed deal.">
+      <p className="mx-auto -mt-6 mb-14 max-w-2xl text-center text-base leading-8 text-on-dark-soft">
+        PropFynia doesn't open agent access to anyone who signs up. Every postpaid agency is onboarded by our team,
+        with deal terms — commission split and platform share — agreed up front.
       </p>
-      <div className="overflow-hidden rounded-xl border border-white/10 bg-surface-dark-elevated">
-        <div className="grid grid-cols-[0.85fr_1.15fr] border-b border-white/10 bg-white/[0.04] px-4 py-3 text-xs font-semibold uppercase tracking-[0.96px] text-on-dark-soft sm:px-6">
-          <span>Status</span>
-          <span>Meaning</span>
-        </div>
-        {ownerStatuses.map(([status, meaning]) => (
-          <div key={status} className="grid grid-cols-[0.85fr_1.15fr] gap-3 border-b border-white/10 px-4 py-4 last:border-b-0 sm:px-6">
-            <strong className="text-sm font-medium text-white sm:text-base">{status}</strong>
-            <span className="text-sm leading-6 text-on-dark-soft">{meaning}</span>
+      <div className="flex flex-col gap-14">
+        {agentGroups.map((group) => (
+          <div key={group.eyebrow}>
+            <p className="text-xs font-bold uppercase tracking-label text-accent">{group.eyebrow}</p>
+            <h3 className="mt-3 font-display text-2xl font-bold leading-[1.15] text-white sm:text-3xl">{group.title}</h3>
+            <p className="mt-3 max-w-2xl text-[15px] leading-7 text-on-dark-soft">{group.copy}</p>
+            <div className="mt-6 grid gap-4 sm:grid-cols-3">
+              {group.items.map((item) => (
+                <Card key={item.title} title={item.title} copy={item.copy} icon={item.icon} dark />
+              ))}
+            </div>
           </div>
         ))}
       </div>
-    </Section>
-  );
-}
-
-function HowItWorks() {
-  return (
-    <Section id="how-it-works" title="How PropFynia Works">
-      <div className="grid gap-5 lg:grid-cols-4">
-        {steps.map((step, index) => (
-          <Card key={step.title} title={`Step ${index + 1}`} icon={step.icon}>
-            <p className="mt-3 text-sm leading-7 text-body">{step.title}</p>
-            <div className="mt-6 font-display text-5xl font-normal text-muted-soft">0{index + 1}</div>
-          </Card>
-        ))}
+      <div className="mt-14 flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-surface-dark-elevated px-6 py-10 text-center sm:px-12">
+        <h3 className="font-display text-2xl font-bold text-white sm:text-3xl">Request postpaid agent access</h3>
+        <p className="max-w-xl text-sm leading-7 text-on-dark-soft">
+          Tell us your agency name and the city or societies you cover. Our team reviews every request and sets up
+          your commission and platform-share terms before you get access — usually within a couple of business days.
+        </p>
+        <a href={AGENT_WHATSAPP_URL} className="btn-accent btn-large mt-2">
+          Request Partner Access <ArrowRight size={18} />
+        </a>
       </div>
     </Section>
   );
 }
 
-function AgentSection() {
-  return (
-    <Section id="agents" dark title="For Real Estate Agents">
-      <div className="grid gap-8 lg:grid-cols-[0.92fr_1.08fr] lg:items-start">
-        <div>
-          <h3 className="font-display text-3xl font-normal leading-[1.13] tracking-[-0.02em] text-white sm:text-4xl">
-            Know which owners are ready before the market does.
-          </h3>
-          <p className="mt-6 text-base leading-8 text-on-dark-soft">
-            PropFynia gives agents building-wise access to owner-approved or lease-triggered rent and sale
-            opportunities. Instead of chasing stale listings, agents can view structured owner intent, expected price or
-            rent, flat size, furnishing status, urgency, and callback readiness.
-          </p>
-          <a href={BUILDING_REPORT_URL} className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-white px-6 py-2.5 text-[15px] font-medium leading-none text-ink transition hover:bg-on-dark-soft">
-            Request Building Report <ArrowRight size={18} />
-          </a>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {agentFeatures.map((feature) => (
-            <div key={feature} className="flex min-h-16 items-center gap-3 rounded-xl border border-white/10 bg-surface-dark-elevated px-5 py-4 text-[15px] font-medium text-on-dark-soft">
-              <MapPinned size={18} className="shrink-0 text-white" />
-              <span>{feature}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </Section>
-  );
-}
-
-function SampleReport() {
+function InfyniaLabsSection() {
   return (
     <Section
-      id="sample-report"
-      title="Sample Building Opportunity Report"
-      copy="A simple view of rent and sale opportunities inside a building."
+      id="infynia-labs"
+      eyebrow="Built by Infynia Labs"
+      title="The AI infrastructure behind PropFynia, not just a name on the footer."
+      copy="PropFynia is one product from Infynia Labs — the same company running production voice AI and financial tooling elsewhere."
     >
-      <div className="overflow-x-auto rounded-xl border border-hairline bg-surface-card shadow-card">
-        <table className="min-w-[820px] w-full border-collapse text-left text-sm">
-          <thead className="bg-surface-strong text-ink">
-            <tr>
-              {["Flat", "Intent", "Size", "Furnishing", "Expected Price/Rent", "Urgency", "Lead Quality"].map((head) => (
-                <th key={head} className="px-4 py-4 text-xs font-semibold uppercase tracking-[0.96px] text-muted">
-                  {head}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {sampleRows.map((row) => (
-              <tr key={row[0]} className="border-t border-hairline">
-                {row.map((cell) => (
-                  <td key={`${row[0]}-${cell}`} className="px-4 py-4 text-body">
-                    {cell}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <p className="mt-4 text-center text-sm text-muted">Sample data shown for illustration only.</p>
-    </Section>
-  );
-}
-
-function LeadCategories() {
-  return (
-    <Section id="lead-categories" title="Lead Categories Agents Understand">
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {leadCategories.map(([title, copy, Icon]) => (
-          <Card key={title} title={title} copy={copy} icon={Icon} />
+      <div className="grid gap-4 sm:grid-cols-3">
+        {infyniaProducts.map((product) => (
+          <Card key={product.title} title={product.title} copy={product.copy} icon={product.icon} />
         ))}
       </div>
-    </Section>
-  );
-}
-
-function Pricing() {
-  return (
-    <Section id="pricing" dark title="Simple Pricing for Agents">
-      <div className="grid gap-5 lg:grid-cols-3">
-        {pricing.map((plan, index) => {
-          const featured = index === 1;
-          return (
-            <article
-              key={plan.name}
-              className={
-                featured
-                  ? "flex min-h-72 flex-col rounded-xl border border-white/15 bg-surface-card p-8 text-ink"
-                  : "flex min-h-72 flex-col rounded-xl border border-white/10 bg-surface-dark-elevated p-8 text-white"
-              }
-            >
-              <WalletCards className={featured ? "mb-5 text-ink" : "mb-5 text-white"} size={24} strokeWidth={1.6} />
-              <h3 className={featured ? "text-lg font-medium text-ink" : "text-lg font-medium text-white"}>{plan.name}</h3>
-              <p className={featured ? "mt-3 font-display text-4xl font-normal text-ink" : "mt-3 font-display text-4xl font-normal text-white"}>
-                {plan.price}
-              </p>
-              <p className={featured ? "mt-5 flex-1 text-sm leading-7 text-body" : "mt-5 flex-1 text-sm leading-7 text-on-dark-soft"}>
-                {plan.copy}
-              </p>
-              {plan.includes.length > 0 && (
-                <ul className={featured ? "mt-5 space-y-2 text-sm leading-6 text-body" : "mt-5 space-y-2 text-sm leading-6 text-on-dark-soft"}>
-                  {plan.includes.map((item) => (
-                    <li key={item} className="flex gap-2">
-                      <CheckCircle2 className={featured ? "mt-1 shrink-0 text-ink" : "mt-1 shrink-0 text-white"} size={15} />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
-              <a
-                href={WHATSAPP_URL}
-                className={
-                  featured
-                    ? "btn-primary mt-7"
-                    : "mt-7 inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-[15px] font-medium leading-none text-ink transition hover:bg-on-dark-soft"
-                }
-              >
-                Request Pricing on WhatsApp <MessageCircle size={17} />
-              </a>
-            </article>
-          );
-        })}
+      <div className="mt-10 text-center">
+        <a
+          href={INFYNIA_LABS_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="btn-secondary btn-large"
+        >
+          Visit infynialabs.com <ArrowRight size={18} />
+        </a>
       </div>
     </Section>
   );
 }
 
-function TrustPrivacy() {
+function TrustSection() {
   return (
-    <Section id="privacy" eyebrow="Trust & Privacy" title="Built for owner trust.">
+    <Section id="trust" soft eyebrow="Trust & Privacy" title="Built so no one has to take the other side's word for it.">
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {trustPoints.map((point) => (
           <div key={point} className="status-tile min-h-28">
             <ShieldCheck size={19} strokeWidth={1.6} />
             <span>{point}</span>
-          </div>
-        ))}
-      </div>
-      <p className="mx-auto mt-10 max-w-3xl text-center text-sm leading-7 text-muted">
-        AI voice and transcript intelligence supports the backend workflow, helping summarize short assisted
-        conversations without making AI the owner&apos;s burden.
-      </p>
-    </Section>
-  );
-}
-
-function Comparison() {
-  return (
-    <Section id="comparison" dark title="Why PropFynia is different">
-      <div className="overflow-hidden rounded-xl border border-white/10 bg-surface-dark-elevated">
-        <div className="grid grid-cols-2 border-b border-white/10 bg-white/[0.04] px-4 py-4 text-xs font-semibold uppercase tracking-[0.96px] text-on-dark-soft sm:px-6">
-          <span>Normal Property Portals</span>
-          <span>PropFynia</span>
-        </div>
-        {comparisons.map(([portal, propfynia]) => (
-          <div key={portal} className="grid grid-cols-2 gap-4 border-b border-white/10 px-4 py-4 last:border-b-0 sm:px-6">
-            <span className="text-sm leading-6 text-on-dark-soft">{portal}</span>
-            <span className="text-sm font-medium leading-6 text-white">{propfynia}</span>
           </div>
         ))}
       </div>
@@ -473,22 +513,22 @@ function FinalCTA() {
     <section className="section-pad bg-canvas">
       <div className="mx-auto max-w-5xl px-5 text-center sm:px-8">
         <div className="relative overflow-hidden rounded-3xl border border-hairline bg-canvas-soft px-5 py-16 shadow-card sm:px-10 lg:px-16">
-          <div className="orb orb-sky -right-20 -top-16 h-72 w-72" />
-          <div className="orb orb-rose -bottom-20 -left-16 h-72 w-72" />
+          <div className="orb orb-gold -right-20 -top-16 h-72 w-72" />
+          <div className="orb orb-navy -bottom-20 -left-16 h-72 w-72" />
           <div className="relative">
             <p className="eyebrow text-muted">Ready when you are</p>
-            <h2 className="section-title text-ink">Ready to organize your property or discover real opportunities?</h2>
+            <h2 className="section-title text-ink">Whichever side of the lease you're on, it's already waiting for you.</h2>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
-              <a href={OWNER_PROFILE_URL} className="btn-primary btn-large">
-                Update My Property Profile <ArrowRight size={18} />
+              <a href={APP_URL} className="btn-primary btn-large">
+                Open PropFynia <ArrowRight size={18} />
               </a>
-              <a href={BUILDING_REPORT_URL} className="btn-secondary btn-large">
-                Request Building Report
+              <a href={AGENT_WHATSAPP_URL} className="btn-accent btn-large">
+                Request Partner Access
               </a>
             </div>
             <a href={WHATSAPP_URL} className="mt-6 inline-flex items-center justify-center gap-2 text-sm font-medium text-body hover:text-ink">
-              <MessageCircle size={18} />
-              Send us your society or building name on WhatsApp.
+              <PhoneCall size={17} />
+              Or send us your question on WhatsApp.
             </a>
           </div>
         </div>
@@ -503,19 +543,24 @@ function Footer() {
       <div className="mx-auto grid max-w-content gap-8 lg:grid-cols-[1fr_1.5fr]">
         <div>
           <Brand variant="light" compact />
-          <p className="mt-4 text-sm text-muted">PropFynia by InfyniaLabs</p>
+          <p className="mt-4 text-sm text-muted">
+            PropFynia by{" "}
+            <a href={INFYNIA_LABS_URL} target="_blank" rel="noreferrer" className="font-medium hover:text-ink">
+              Infynia Labs
+            </a>
+          </p>
         </div>
         <div className="flex flex-col gap-5 lg:items-end">
           <div className="flex flex-wrap gap-6 text-[15px] font-medium text-body">
             <a href="#owners" className="hover:text-ink">For Owners</a>
+            <a href="#tenants" className="hover:text-ink">For Tenants</a>
             <a href="#agents" className="hover:text-ink">For Agents</a>
-            <a href="#privacy" className="hover:text-ink">Privacy</a>
-            <a href={CONTACT_URL} className="hover:text-ink">Contact</a>
+            <a href="#trust" className="hover:text-ink">Trust</a>
             <a href={WHATSAPP_URL} className="hover:text-ink">WhatsApp</a>
           </div>
           <p className="max-w-3xl text-xs leading-6 text-muted-soft lg:text-right">
-            PropFynia supports owner-controlled property readiness and building opportunity reports. It does not promise
-            buyers, tenants, pricing outcomes, or guaranteed transactions.
+            PropFynia is free for property owners and tenants. Postpaid agent access is granted by request only, with
+            deal terms agreed before onboarding.
           </p>
         </div>
       </div>
@@ -530,7 +575,7 @@ function FloatingWhatsApp() {
       className="fixed bottom-5 right-5 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-soft transition hover:-translate-y-0.5 hover:text-white sm:h-auto sm:w-auto sm:px-5"
       aria-label="Contact PropFynia on WhatsApp"
     >
-      <MessageCircle size={24} />
+      <PhoneCall size={24} />
       <span className="ml-2 hidden text-sm font-semibold sm:inline">WhatsApp</span>
     </a>
   );

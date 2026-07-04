@@ -3,9 +3,10 @@
 @tailwind utilities;
 
 /*
- * Theme: ElevenLabs editorial light (sourced from getdesign.md).
- * Off-white canvas, warm near-black ink, EB Garamond Light display + Inter body,
- * ink pill CTAs, hairline + soft-drop cards, pastel gradient orbs as atmosphere.
+ * Theme: PropFynia "Quiet Luxury" — navy + gold, sourced from the app's own
+ * design system (src/propfynia.css in propfyniaApp). Paper canvas, deep-navy
+ * ink, Cormorant Garamond display + Plus Jakarta Sans body, navy pill CTAs,
+ * gold reserved for accents/eyebrows/agent-only actions.
  */
 
 @layer base {
@@ -15,22 +16,21 @@
 
   body {
     margin: 0;
-    font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-    background: #f5f5f5;
-    color: #0c0a09;
-    letter-spacing: 0.16px;
+    font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+    background: #f3f5fa;
+    color: #0d1e35;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    font-variant-numeric: tabular-nums;
   }
 
-  /* Display headings use the editorial serif at a light weight. */
   h1,
   h2,
   h3,
   .font-display {
-    font-family: "EB Garamond", "Times New Roman", Georgia, serif;
-    font-weight: 400;
-    letter-spacing: -0.02em;
+    font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
   }
 
   a {
@@ -39,7 +39,7 @@
   }
 
   a:hover {
-    color: #0c0a09;
+    color: #0d1e35;
   }
 }
 
@@ -48,17 +48,15 @@
     @apply py-20 sm:py-24 lg:py-[96px];
   }
 
-  /* Light body band (off-white canvas). */
   .section-light {
     @apply bg-canvas;
   }
 
-  /* Soft alternating band. */
   .section-soft {
     @apply bg-canvas-soft;
   }
 
-  /* Rare dark band (ink canvas) — used scarcely for contrast. */
+  /* Dark band — deep navy, used for the Agent, Pricing-style, and trust bands. */
   .section-dark {
     @apply relative overflow-hidden bg-surface-dark;
   }
@@ -67,45 +65,50 @@
     @apply relative;
   }
 
-  /* Section label — uppercase Inter caption. */
   .eyebrow {
-    @apply text-xs font-semibold uppercase tracking-[0.96px] text-muted;
+    @apply text-xs font-bold uppercase tracking-label text-accent-active;
   }
 
   .section-title {
-    @apply mt-4 font-display text-3xl font-normal leading-[1.13] tracking-[-0.02em] sm:text-4xl lg:text-5xl;
+    @apply mt-4 font-display text-3xl font-bold leading-[1.13] tracking-display sm:text-4xl lg:text-5xl;
   }
 
   .card-title {
-    @apply text-lg font-medium leading-snug;
-    font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+    @apply text-lg font-semibold leading-snug;
+    font-family: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
     letter-spacing: 0;
   }
 
   /* ---- Buttons ---- */
-  /* Primary: warm near-black ink pill. The only CTA color. */
+  /* Primary: navy pill — the self-serve action (owners & tenants). */
   .btn-primary {
-    @apply inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-primary px-5 py-2.5 text-[15px] font-medium leading-none text-white;
-    letter-spacing: 0;
+    @apply inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-primary px-5 py-2.5 text-[15px] font-semibold leading-none text-white shadow-brand;
   }
 
   .btn-primary:hover {
     @apply bg-primary-active text-white;
   }
 
-  /* Secondary: transparent pill with 1px ink hairline. */
+  /* Accent: gold pill — reserved for the agent "request access" action, so the
+     one gated CTA on the page is visually distinct from the two open ones. */
+  .btn-accent {
+    @apply inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-accent px-5 py-2.5 text-[15px] font-semibold leading-none text-white shadow-gold;
+  }
+
+  .btn-accent:hover {
+    @apply bg-accent-active text-white;
+  }
+
   .btn-secondary {
-    @apply inline-flex min-h-10 items-center justify-center gap-2 rounded-full border border-hairline-strong bg-transparent px-5 py-2.5 text-[15px] font-medium leading-none text-ink;
-    letter-spacing: 0;
+    @apply inline-flex min-h-10 items-center justify-center gap-2 rounded-full border border-hairline-strong bg-transparent px-5 py-2.5 text-[15px] font-semibold leading-none text-ink;
   }
 
   .btn-secondary:hover {
     @apply border-ink text-ink;
   }
 
-  /* On a dark band, invert the outline so it reads. */
   .btn-on-dark {
-    @apply border-white/30 text-white;
+    @apply border-white/25 text-white;
   }
 
   .btn-on-dark:hover {
@@ -117,7 +120,6 @@
   }
 
   /* ---- Cards ---- */
-  /* Feature card: white surface, hairline, soft drop on hover. */
   .feature-card {
     @apply rounded-xl border border-hairline bg-surface-card p-6 shadow-card transition-shadow;
   }
@@ -126,50 +128,35 @@
     @apply shadow-soft;
   }
 
-  /* Card on a dark band. */
   .dark-card {
     @apply rounded-xl border border-white/10 bg-surface-dark-elevated p-6;
   }
 
   .icon-box {
-    @apply mb-5 flex h-11 w-11 items-center justify-center rounded-full bg-surface-strong text-ink;
+    @apply mb-5 flex h-11 w-11 items-center justify-center rounded-full bg-brand-soft text-primary;
   }
 
   .icon-box-dark {
-    @apply mb-5 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white;
+    @apply mb-5 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-accent;
   }
 
-  /* Uppercase pill badge. */
   .badge-pill {
-    @apply inline-flex items-center rounded-full bg-surface-strong px-2.5 py-1 text-xs font-semibold uppercase tracking-[0.96px] text-ink;
+    @apply inline-flex items-center rounded-full bg-brand-soft px-2.5 py-1 text-xs font-bold uppercase tracking-label text-primary;
   }
 
-  /* ---- Atmospheric gradient orbs (decoration only) ---- */
+  /* ---- Atmospheric glow (decoration only) — restrained gold/navy, no pastels. ---- */
   .orb {
-    @apply pointer-events-none absolute rounded-full opacity-60 blur-3xl;
+    @apply pointer-events-none absolute rounded-full opacity-70 blur-3xl;
   }
 
-  .orb-mint {
-    background: radial-gradient(circle at 30% 30%, #a7e5d3 0%, rgba(167, 229, 211, 0) 70%);
+  .orb-gold {
+    background: radial-gradient(circle at 30% 30%, rgba(191, 148, 40, 0.22) 0%, rgba(191, 148, 40, 0) 70%);
   }
 
-  .orb-peach {
-    background: radial-gradient(circle at 30% 30%, #f4c5a8 0%, rgba(244, 197, 168, 0) 70%);
+  .orb-navy {
+    background: radial-gradient(circle at 30% 30%, rgba(20, 43, 74, 0.14) 0%, rgba(20, 43, 74, 0) 70%);
   }
 
-  .orb-lavender {
-    background: radial-gradient(circle at 30% 30%, #c8b8e0 0%, rgba(200, 184, 224, 0) 70%);
-  }
-
-  .orb-sky {
-    background: radial-gradient(circle at 30% 30%, #a8c8e8 0%, rgba(168, 200, 232, 0) 70%);
-  }
-
-  .orb-rose {
-    background: radial-gradient(circle at 30% 30%, #e8b8c4 0%, rgba(232, 184, 196, 0) 70%);
-  }
-
-  /* Gradient-orb card: extra-soft corners over a soft canvas. */
   .orb-card {
     @apply relative overflow-hidden rounded-3xl border border-hairline bg-canvas-soft p-8 shadow-card;
   }
@@ -180,7 +167,7 @@
   }
 
   .status-tile svg {
-    @apply mt-0.5 shrink-0 text-ink;
+    @apply mt-0.5 shrink-0 text-primary;
   }
 
   .future-item {
@@ -188,10 +175,19 @@
   }
 
   .future-item svg {
-    @apply shrink-0 text-ink;
+    @apply shrink-0 text-primary;
   }
 
   .cta-panel {
     @apply rounded-3xl border border-hairline bg-canvas-soft px-5 py-16 sm:px-10 lg:px-16;
+  }
+
+  /* ---- Role picker (mirrors the app's own role-select screen) ---- */
+  .role-card {
+    @apply flex flex-col items-start gap-3 rounded-2xl border border-hairline bg-surface-card p-6 text-left shadow-card transition-all;
+  }
+
+  .role-card:hover {
+    @apply -translate-y-0.5 border-hairline-strong shadow-soft;
   }
 }
