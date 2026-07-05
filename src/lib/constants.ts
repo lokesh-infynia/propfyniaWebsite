@@ -6,7 +6,7 @@ export const WHATSAPP_URL = "https://wa.me/91XXXXXXXXXX";
 export const AGENT_WHATSAPP_URL =
   "https://wa.me/91XXXXXXXXXX?text=" +
   encodeURIComponent(
-    "Hi PropFynia, I'd like to request postpaid agent access. Agency name: / City & societies I cover: / Phone: "
+    "Hi PropFynia, I'd like to request agent access. Agency name: / City & societies I cover: / Phone: "
   );
 
 export const logoLight = "/logos/ChatGPT Image Jun 1, 2026 at 08_57_42 AM (1).png";
