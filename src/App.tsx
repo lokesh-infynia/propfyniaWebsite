@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import {
   ArrowRight,
+  ArrowUpRight,
   BadgeCheck,
   Banknote,
   BarChart3,
@@ -9,13 +10,18 @@ import {
   CheckCircle2,
   Coins,
   FileLock2,
+  FileSpreadsheet,
+  FileText,
+  Fingerprint,
   FolderLock,
   Handshake,
   History,
   Home,
   KeyRound,
   Landmark,
+  ListChecks,
   Mic,
+  NotebookPen,
   PhoneCall,
   ReceiptText,
   RefreshCcw,
@@ -23,6 +29,7 @@ import {
   ShieldCheck,
   Sparkles,
   Tags,
+  Target,
   UploadCloud,
   UserCheck,
   Users,
@@ -97,6 +104,33 @@ const agentGroups: Array<{
     ],
   },
   {
+    eyebrow: "Working a Lead, Day to Day",
+    title: "Know exactly who to call this morning",
+    copy: "Every lead — buyer, tenant, seller, landlord — moves through the same rhythm, and nothing goes stale without you noticing.",
+    items: [
+      {
+        title: "The Today queue",
+        copy: "Brand-new leads, overdue follow-ups, and anything untouched for 72 hours, surfaced together, overdue first. This is where your day starts.",
+        icon: Bell,
+      },
+      {
+        title: "Every lead has a status",
+        copy: "New, Contacted or Called, Qualified, Lost — and a lost owner lead can always be re-engaged later. Nothing sits in limbo.",
+        icon: ListChecks,
+      },
+      {
+        title: "Matches, done for you",
+        copy: "The moment a landlord's flat fits a tenant's budget and configuration, both cards show a matching count — no manual cross-referencing between tabs.",
+        icon: Target,
+      },
+      {
+        title: "Notes & follow-ups, per lead",
+        copy: "Every lead keeps its own dated note trail and a follow-up date you set yourself — nothing lives only in your head.",
+        icon: NotebookPen,
+      },
+    ],
+  },
+  {
     eyebrow: "Closing a Deal",
     title: "A confirmed close, not a finish line",
     copy: "Society Opportunities gives you the market-rate comparison; the rest of the deal runs through the app end to end — and stays there afterward.",
@@ -115,6 +149,23 @@ const agentGroups: Array<{
         title: "Both sides held to the same terms",
         copy: "The rent, deposit and dates agreed at signing stay on record — so what either side owes or is owed is never a matter of memory.",
         icon: BadgeCheck,
+      },
+    ],
+  },
+  {
+    eyebrow: "Your Tools",
+    title: "The paperwork, drafted for you",
+    copy: "Two things every agent usually cobbles together themselves — handled inside the app instead.",
+    items: [
+      {
+        title: "Properties, all in one table",
+        copy: "Every flat across your societies, filterable by status, with click-to-call and WhatsApp — plus a one-tap export formatted for Infynia Labs' calling.",
+        icon: FileSpreadsheet,
+      },
+      {
+        title: "Documents, drafted and state-aware",
+        copy: "Rent agreements, token receipts, sale agreements, KYC checklists — generated for you, aware of stamp duty by state, ready to share by WhatsApp or email.",
+        icon: FileText,
       },
     ],
   },
@@ -201,6 +252,16 @@ const ownerFeatures: Array<{ title: string; copy: string; icon: LucideIcon }> = 
     copy: "A rent payment reported, a deposit updated, a deal closed — everything that needs your attention arrives in one place.",
     icon: Bell,
   },
+  {
+    title: "Update Property Status in one screen",
+    copy: "Current usage, availability — for rent, for sale, or not available — and whether to share the opportunity with agents, all from a single screen. Change it the moment something changes.",
+    icon: RefreshCcw,
+  },
+  {
+    title: "Manage your home loan",
+    copy: "A direct link to BeatMyEMI sits on your dashboard so you can track and optimize your EMI whenever it's on your mind — PropFynia doesn't try to be your loan app too.",
+    icon: Landmark,
+  },
 ];
 
 // ── For Tenants ──────────────────────────────────────────────────────────────
@@ -244,6 +305,11 @@ const tenantFeatures: Array<{ title: string; copy: string; icon: LucideIcon }> =
     title: "An agent who's still reachable",
     copy: "If an agent handled your flat's deal, you'll see who they are — name, agency, RERA number — and they're still the one to call if something needs sorting out.",
     icon: BadgeCheck,
+  },
+  {
+    title: "A path to buying, when you're ready",
+    copy: "As your lease nears its end, PropFynia asks — once — whether you'd consider buying in the same society you already know well. Say yes, and a local agent reaches out; say nothing, and it never asks again.",
+    icon: ArrowUpRight,
   },
 ];
 
@@ -297,6 +363,7 @@ function App() {
       <AgentsSection />
       <OwnersSection />
       <TenantsSection />
+      <MultiRoleSection />
       <InfyniaLabsSection />
       <TrustSection />
       <FinalCTA />
@@ -410,6 +477,13 @@ function RolePicker() {
             </a>
           ))}
         </div>
+        <p className="mt-6 text-center text-sm text-muted">
+          Some accounts hold more than one of these —{" "}
+          <a href="#multi-role" className="font-semibold text-primary hover:text-ink">
+            see how that works
+          </a>
+          .
+        </p>
       </div>
     </section>
   );
@@ -495,6 +569,36 @@ function TenantsSection() {
   );
 }
 
+function MultiRoleSection() {
+  const hats = [
+    { emoji: "🏠", label: "Owns B-402, Sunrise Meadows" },
+    { emoji: "🔑", label: "Rents A-204, Palm Residency" },
+    { emoji: "🤝", label: "Occasionally lists a flat for family" },
+  ] as const;
+
+  return (
+    <Section
+      id="multi-role"
+      soft
+      eyebrow="One Account, Every Hat"
+      title="Landlord on one flat. Tenant on another. Sometimes both at once."
+      copy="PropFynia doesn't force a single identity onto a phone number. The same account can own a flat in one society and rent in another, switching between My Properties and My Tenancy from one login — with each side's data staying separate underneath."
+    >
+      <div className="grid gap-4 sm:grid-cols-3">
+        {hats.map((hat) => (
+          <div key={hat.label} className="role-card items-center text-center">
+            <span className="text-3xl">{hat.emoji}</span>
+            <p className="text-sm font-medium leading-6 text-body">{hat.label}</p>
+          </div>
+        ))}
+      </div>
+      <p className="mx-auto mt-8 max-w-2xl text-center text-sm leading-7 text-muted">
+        One phone number, one OTP — whichever of these apply to you, they're all already on the account.
+      </p>
+    </Section>
+  );
+}
+
 function InfyniaLabsSection() {
   return (
     <Section
@@ -526,6 +630,19 @@ function InfyniaLabsSection() {
 function TrustSection() {
   return (
     <Section id="trust" eyebrow="Trust & Privacy" title="Built so no one has to take the other side's word for it.">
+      <div className="mx-auto mb-10 flex max-w-2xl flex-col items-center gap-4 rounded-2xl border border-hairline bg-brand-soft px-6 py-10 text-center sm:px-12">
+        <div className="icon-box mb-0">
+          <Fingerprint size={22} strokeWidth={1.6} />
+        </div>
+        <h3 className="font-display text-2xl font-bold text-ink sm:text-3xl">
+          No passwords. No usernames. Just your verified phone number.
+        </h3>
+        <p className="text-sm leading-7 text-body">
+          Every owner, tenant, and agent signs in the same way — a phone number and a one-time OTP, nothing to
+          remember or leak. Every property, lease, rent record, and deal on PropFynia is tied to that verified
+          identity, not a login anyone could share, guess, or fake.
+        </p>
+      </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {trustPoints.map((point) => (
           <div key={point} className="status-tile min-h-28">
