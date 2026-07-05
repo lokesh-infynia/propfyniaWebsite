@@ -129,8 +129,8 @@ const agentGroups: Array<{
         icon: Banknote,
       },
       {
-        title: "Deal terms, set with you",
-        copy: "Your platform share and calling arrangement are agreed with our team when you're onboarded — not a flat rate applied blind.",
+        title: "Set for your agency, not a flat rate",
+        copy: "Your platform share and calling arrangement are set for your agency specifically — not a flat rate applied blind to everyone.",
         icon: Handshake,
       },
     ],
@@ -313,15 +313,15 @@ function Hero() {
       <div className="orb orb-navy right-[-8rem] top-24 h-[30rem] w-[30rem]" />
       <div className="relative mx-auto grid min-h-[calc(100svh-4rem)] max-w-content items-center gap-12 px-5 py-16 sm:px-8 lg:grid-cols-[1fr_0.82fr]">
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-          <span className="badge-pill">For Real Estate Agents</span>
+          <span className="badge-pill">Property Agents CRM</span>
           <h1 className="mt-6 max-w-5xl font-display text-5xl font-bold leading-[1.05] tracking-display-tight text-ink sm:text-6xl lg:text-7xl">
             The deal closes. You don't.
           </h1>
           <p className="mt-7 max-w-3xl text-base leading-8 text-body sm:text-lg">
-            Most tools treat a closed deal as the finish line. PropFynia treats it as the start of your job — you stay
-            the agent of record for the life of the tenancy, involved when rent's confirmed, when a dispute needs
-            settling, and when the lease comes up for renewal. Every document and status change is one tap away,
-            for as long as it matters.
+            PropFynia is the CRM built for property agents — not a generic sales pipeline with real estate labels
+            bolted on. Work leads through to close, then stay the agent of record for the life of the tenancy:
+            involved when rent's confirmed, when a dispute needs settling, and when the lease comes up for renewal.
+            Every document and status change is one tap away, for as long as it matters.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <a href={AGENT_WHATSAPP_URL} className="btn-accent btn-large">
@@ -332,7 +332,7 @@ function Hero() {
             </a>
           </div>
           <p className="mt-6 max-w-2xl text-sm leading-7 text-muted">
-            Agent access is granted by request, with deal terms agreed up front. Free for the owners and tenants you bring on.
+            Agent access is granted by request, after we've vetted you as a genuine agent. Free for the owners and tenants you bring on.
           </p>
         </motion.div>
 
@@ -417,10 +417,10 @@ function RolePicker() {
 
 function AgentsSection() {
   return (
-    <Section id="agents" dark eyebrow="For Agents" title="Stay the agent, not just the closer.">
+    <Section id="agents" dark eyebrow="For Agents" title="Vetted agents. Not just closers.">
       <p className="mx-auto -mt-6 mb-14 max-w-2xl text-center text-base leading-8 text-on-dark-soft">
-        PropFynia doesn't open agent access to anyone who signs up. Every agency is onboarded by our team, with deal
-        terms — commission split and platform share — agreed up front.
+        PropFynia doesn't open agent access to anyone who signs up. We vet every agent for genuine, active real
+        estate work before they're onboarded to the platform.
       </p>
       <div className="flex flex-col gap-14">
         {agentGroups.map((group) => (
@@ -439,8 +439,8 @@ function AgentsSection() {
       <div className="mt-14 flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-surface-dark-elevated px-6 py-10 text-center sm:px-12">
         <h3 className="font-display text-2xl font-bold text-white sm:text-3xl">Request agent access</h3>
         <p className="max-w-xl text-sm leading-7 text-on-dark-soft">
-          Tell us your agency name and the city or societies you cover. Our team reviews every request and sets up
-          your commission and platform-share terms before you get access — usually within a couple of business days.
+          Tell us your agency name and the city or societies you cover. Our team verifies every request before
+          granting access — usually within a couple of business days.
         </p>
         <a href={AGENT_WHATSAPP_URL} className="btn-accent btn-large mt-2">
           Request Agent Access <ArrowRight size={18} />
@@ -589,8 +589,8 @@ function Footer() {
             <a href={WHATSAPP_URL} className="hover:text-ink">WhatsApp</a>
           </div>
           <p className="max-w-3xl text-xs leading-6 text-muted-soft lg:text-right">
-            Agent access is granted by request only, with deal terms agreed before onboarding. Free for the owners
-            and tenants an agent brings onto PropFynia.
+            Agent access is granted by request only, after we've vetted the agent. Free for the owners and tenants
+            an agent brings onto PropFynia.
           </p>
         </div>
       </div>
