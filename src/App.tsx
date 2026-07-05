@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import {
   ArrowRight,
   ArrowUpRight,
+  AudioLines,
   BadgeCheck,
   Banknote,
   BarChart3,
@@ -17,6 +18,7 @@ import {
   Handshake,
   History,
   Home,
+  Infinity as InfinityIcon,
   KeyRound,
   Landmark,
   ListChecks,
@@ -27,6 +29,7 @@ import {
   RefreshCcw,
   Scale,
   ShieldCheck,
+  Smile,
   Sparkles,
   Tags,
   Target,
@@ -100,6 +103,28 @@ const agentGroups: Array<{
         title: "Log a lead yourself",
         copy: "A walk-in, a call, a referral — tap Log and it's in your pipeline immediately, no upload required.",
         icon: PhoneCall,
+      },
+    ],
+  },
+  {
+    eyebrow: "Powered by Infynia Labs",
+    title: "Cold calling, handled by voice AI",
+    copy: "The calls to your leads aren't outsourced to a BPO — they're placed by Infynia Labs' own voice AI, the same technology running production voice agents elsewhere in the company.",
+    items: [
+      {
+        title: "Voice AI, not a call center",
+        copy: "Sub-400ms response time, fluent in Hindi and English, working through your contact list around the clock. Agents typically see about 6x the outreach of calling the list themselves.",
+        icon: AudioLines,
+      },
+      {
+        title: "No burnout, no bad days",
+        copy: "Human cold-calling teams tire and turn over fast. A voice AI doesn't — call 500 gets the same tone, script, and patience as call 1.",
+        icon: InfinityIcon,
+      },
+      {
+        title: "The same professional greeting, every time",
+        copy: "No variance from caller to caller — every contact hears the same standardized, polished opening, so your agency's first impression is never left to chance.",
+        icon: Smile,
       },
     ],
   },
